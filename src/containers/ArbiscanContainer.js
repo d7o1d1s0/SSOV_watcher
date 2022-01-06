@@ -7,6 +7,7 @@ import ContractDetails from '../components/ContractDetails';
 const ArbiscanContainer = () => {
 
     const [info, setInfo] = useState(null);
+    const [txInfo, setTxInfo] = useState(null)
     const [selectedTransaction, setSelectedTransaction] = useState(null);
     const [contract, setContract] = useState(null);
 
@@ -40,6 +41,11 @@ const ArbiscanContainer = () => {
         .then(data => setInfo(data.result));
         }
         
+    const getTxInfo = function() {
+        fetch(`https://api.arbiscan.io/api?module=logs&action=getLogs&fromBlock=4350809&toBlock=4350811&address=0xd4cafe592be189aeb7826ee5062b29405ee63488&topic0=0x78de8c82973d11415ea2004f458680aa6d5826c3e8a798496a61db56fa66417b&apikey=${process.env.API_KEY}`)
+        .then((res) => res.json())
+        .then(data => setInfo(data.result));
+    }    
     
 
     const onTransactionSelected = function(transaction) {

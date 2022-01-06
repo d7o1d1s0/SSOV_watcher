@@ -69,9 +69,9 @@ const TransactionDetails = ({selectedTransaction}) => {
 
     return (
         <>
-        <p>Address: {from}</p>
+        <p>Address: <a target="_blank" href={`https://arbiscan.io/address/${from}`}>{from}</a></p>
         <p>Time: {time_obj}</p>
-        <p>Hash: {hash}</p>
+        <p>Hash: <a target="_blank" href={`https://arbiscan.io/tx/${hash}`}>{hash}</a></p>
         <p>Token: {token}</p>
         <p>Strike: {strike}</p>
         <p>Amount: {gweis*10**-18} contract(s)</p>
