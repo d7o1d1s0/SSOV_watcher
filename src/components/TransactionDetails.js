@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const TransactionDetails = ({selectedTransaction}) => {
+const TransactionDetails = ({selectedTransaction, txInfo}) => {
 
     const from = selectedTransaction.from
     const stamp = selectedTransaction.timeStamp
@@ -64,6 +64,11 @@ const TransactionDetails = ({selectedTransaction}) => {
         }
     }
 
+    const txData = function(tx) {
+        console.log(tx)
+        return tx.data.slice(237, 258)
+    }
+
     const strike = strike_finder(token.toString(), input[73]).strike
     
 
@@ -76,6 +81,7 @@ const TransactionDetails = ({selectedTransaction}) => {
         <p>Strike: {strike}</p>
         <p>Amount: {gweis*10**-18} contract(s)</p>
         <p>Value: {(value*10**-18).toFixed(6)} ETH</p>
+        <p>Data: {txData(txInfo)}</p>
         </>
     )
 }

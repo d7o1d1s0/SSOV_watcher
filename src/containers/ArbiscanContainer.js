@@ -15,6 +15,7 @@ const ArbiscanContainer = () => {
         if (contract) {
             setSelectedTransaction(null);
             getInfo();
+            console.log(txInfo)
         }
     }, [contract]);
 
@@ -44,7 +45,7 @@ const ArbiscanContainer = () => {
     const getTxInfo = function() {
         fetch(`https://api.arbiscan.io/api?module=logs&action=getLogs&fromBlock=4350809&toBlock=4350811&address=0xd4cafe592be189aeb7826ee5062b29405ee63488&topic0=0x78de8c82973d11415ea2004f458680aa6d5826c3e8a798496a61db56fa66417b&apikey=${process.env.API_KEY}`)
         .then((res) => res.json())
-        .then(data => setTxInfo(data.result));
+        .then(d => setTxInfo(d.result[0]));
     }    
     
 
@@ -59,7 +60,7 @@ const ArbiscanContainer = () => {
             <ContractDetails contractOptions={contractOptions} handleContractSelect={handleContractSelect}/>
             <h2>Contract: {contract}</h2>
             {contract ? <TransactionsList info={info} onTransactionSelected={onTransactionSelected}/> : null}
-            {selectedTransaction ? <TransactionDetails selectedTransaction = {selectedTransaction} /> : null}
+            {selectedTransaction ? <TransactionDetails txInfo={txInfo} selectedTransaction = {selectedTransaction} /> : null}
         </>
     )
 }
