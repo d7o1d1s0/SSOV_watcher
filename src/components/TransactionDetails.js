@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const TransactionDetails = ({selectedTransaction, contractList}) => {
+const TransactionDetails = ({selectedTransaction}) => {
 
     const from = selectedTransaction.from
     const stamp = selectedTransaction.timeStamp
