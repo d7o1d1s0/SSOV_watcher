@@ -25,7 +25,7 @@ const TransactionsList = ({info, onTransactionSelected}) => {
     const handleChange = function(event) {
         const chosenTransaction = info[event.target.value]
         onTransactionSelected(chosenTransaction);
-        console.log(chosenTransaction)
+        // console.log(chosenTransaction)
     }
 
     return (
