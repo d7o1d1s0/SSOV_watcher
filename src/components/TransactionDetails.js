@@ -66,7 +66,7 @@ const TransactionDetails = ({selectedTransaction, txInfo}) => {
 
     const txData = function(tx) {
         console.log(tx)
-        return tx.data.slice(237, 258)
+        return (parseInt(tx.data.slice(237, 258), 16)*10**-18).toFixed(4)
     }
 
     const strike = strike_finder(token.toString(), input[73]).strike
@@ -80,8 +80,8 @@ const TransactionDetails = ({selectedTransaction, txInfo}) => {
         <p>Token: {token}</p>
         <p>Strike: {strike}</p>
         <p>Amount: {gweis*10**-18} contract(s)</p>
-        <p>Value: {(value*10**-18).toFixed(6)} ETH</p>
-        <p>Data: {txData(txInfo)}</p>
+        <p>ETH: {(value*10**-18).toFixed(6)}</p>
+        <p>Value: {txData(txInfo)} {token}</p>
         </>
     )
 }
