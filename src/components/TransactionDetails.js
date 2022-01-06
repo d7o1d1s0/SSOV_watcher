@@ -65,15 +65,17 @@ const TransactionDetails = ({selectedTransaction, txInfo}) => {
     }
 
     const txData = function(tx) {
-        // console.log(tx)
+        console.log(tx)
         return (parseInt(tx.data.slice(237, 258), 16)*10**-18).toFixed(4)
     }
 
     const strike = strike_finder(token.toString(), input[73]).strike
     
 
-    return (
+    return (  
         <>
+        <h1>Info here</h1>
+        {txInfo ? <div>
         <p>Address: <a target="_blank" href={`https://arbiscan.io/address/${from}`}>{from}</a></p>
         <p>Time: {time_obj}</p>
         <p>Hash: <a target="_blank" href={`https://arbiscan.io/tx/${hash}`}>{hash}</a></p>
@@ -82,7 +84,8 @@ const TransactionDetails = ({selectedTransaction, txInfo}) => {
         <p>Amount: {gweis*10**-18} contract(s)</p>
         <p>ETH: {(value*10**-18).toFixed(6)}</p>
         <p>Value: {txData(txInfo)} {token}</p>
-        </>
+        </div> : null}
+        </> 
     )
 }
 
