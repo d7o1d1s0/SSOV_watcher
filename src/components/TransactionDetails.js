@@ -69,7 +69,7 @@ const TransactionDetails = ({selectedTransaction, txInfo}) => {
         console.log(tx.data)
         console.log(tx.data.slice(237,259))
         console.log(parseInt(tx.data.slice(237,258), 16))
-        console.log(parseInt(tx.data.slice(237,258), 16)*10**-20)
+        console.log(parseInt(tx.data.slice(237,258), 16)*10**-18)
         return (parseInt(tx.data.slice(237, 258), 16)*10**-18).toFixed(4)
     }
 
