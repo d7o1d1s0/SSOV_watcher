@@ -7,8 +7,9 @@ const TransactionsList = ({info, onTransactionSelected}) => {
         return <p> loading..</p>
     }
 
-    const make_label = function (res) {
+    console.log(info);
 
+    const make_label = function (res) {
         let eth_value = (res.value*10**-18).toFixed(4)
         let lab = ''
         let label = lab.concat(eth_value, ' ETH')
