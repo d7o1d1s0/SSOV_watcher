@@ -65,11 +65,11 @@ const TransactionDetails = ({selectedTransaction, txInfo}) => {
     }
 
     const txData = function(tx) {
-        console.log(tx)
-        console.log(tx.data)
-        console.log(tx.data.slice(237,259))
-        console.log(parseInt(tx.data.slice(237,258), 16))
-        console.log(parseInt(tx.data.slice(237,258), 16)*10**-18)
+        // console.log(tx)
+        // console.log(tx.data)
+        // console.log(tx.data.slice(237,259))
+        // console.log(parseInt(tx.data.slice(237,258), 16))
+        // console.log(parseInt(tx.data.slice(237,258), 16)*10**-18)
         return (parseInt(tx.data.slice(237, 258), 16)*10**-18).toFixed(4)
     }
 
