@@ -15,9 +15,9 @@ const ArbiscanContainer = () => {
     useEffect(() => {
 
         // setSelectedTransaction(null);
-        BuyService.getBuys()
-            .then(info => setInfo(info));
-
+        if (contract) {
+            getInfo()
+        }
         if (selectedTransaction) {
             getTxInfo();
         }
