@@ -1,22 +1,38 @@
-const baseURL = 'http://localhost:5000/api/buys/'
+const baseURL = 'http://localhost:5000/api/buys/';
 
-export const getBuys = () => {
-    return fetch(baseURL)
-        .then(res => res.json())
-}
+const BuyService = {
+    getBuys() {
+        return fetch(baseURL)
+            .then(res => res.json());
+    },
 
-export const postBuy = (payload) => {
-    return fetch(baseURL, {
-        method: 'POST',
-        body: JSON.stringify(payload),
-        headers: { 'Content-Type': 'application/json' }
-    })
-    .then(res => res.json())
-}
+    addBuy(buy) {
+        return fetch(baseURL, {
+            method: 'POST',
+            body: JSON.stringify(buy),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json());
+    },
 
-export const deleteBuy = (id) => {
-    return fetch(baseURL + id, {
-        method: 'DELETE'
-    })
-}
+    updateBuy(buy) {
+        return fetch(baseURL + buy._id, {
+            method: 'PUT',
+            body: JSON.stringify(buy),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json());
+    },
 
+    deleteBuy(id) {
+        return fetch(baseURL + id, {
+            method: 'DELETE'
+        });
+    }
+};
+
+export default BuyService;

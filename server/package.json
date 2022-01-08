@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "mongodb_with_server_games_end",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,12 +8,15 @@
     "server:dev": "nodemon server.js",
     "seeds": "mongo < db/seeds.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.17.4"
+  },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "cors": "^2.8.5",
-    "express": "^4.17.2",
-    "mongodb": "^4.3.0"
+    "express": "^4.16.4",
+    "mongodb": "^3.1.13"
   }
 }
