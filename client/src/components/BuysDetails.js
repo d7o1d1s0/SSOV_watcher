@@ -15,9 +15,8 @@ const BuysDetails = ({ buy }) => {
 
     const parse_time = function (buy) {
         const stamp = buy.timeStamp
-        const time = new Date(stamp * 1000)
-        const time_obj = time.toString()
-        return time_obj
+        const time = new Date(stamp * 1000).toISOString().replace(/T/, ' ').slice(0,-5)
+        return time
     }
 
     const thisContractList = [
