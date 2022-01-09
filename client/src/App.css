@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+body {
+  background: #eee;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.buy-info {
+  background: greenyellow
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
