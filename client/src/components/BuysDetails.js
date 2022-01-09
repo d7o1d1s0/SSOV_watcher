@@ -7,6 +7,12 @@ const BuysDetails = ({ buy }) => {
     const from = buy.from
     const token_contract = buy.to
 
+    const parse_address = function(from) {
+        const string1 = ''
+        const string2 = string1.concat(from.slice(0,7), '..', from.slice(-5))
+        return string2
+    }
+
     const parse_hash = function (buy) {
         const string1 = ''
         const string2 = string1.concat(buy.hash.slice(0, 7), '..', buy.hash.slice(-5))
@@ -77,7 +83,7 @@ const BuysDetails = ({ buy }) => {
                 <h4>Option Buy</h4>
                 <p>Hash: <a target="_blank" href={`https://arbiscan.io/tx/${buy.hash}`}>{parse_hash(buy)}</a></p>
                 <p>Time: {parse_time(buy)}</p>
-                <p>Address: <a target="_blank" href={`https://arbiscan.io/address/${from}`}>{from}</a></p>
+                <p>Address: <a target="_blank" href={`https://arbiscan.io/address/${from}`}>{parse_address(from)}</a></p>
                 <p>Token: {token}</p>
                 <p>Strike: {strike}</p>
                 <p>Amount: {gweis * 10 ** -18} contract(s)</p>

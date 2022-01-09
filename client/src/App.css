@@ -3,12 +3,32 @@
 }
 
 body {
-  background: #eee;
+  background: grey;
   font-family: 'Open Sans', sans-serif;
 }
 
+#buys {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+
 .buy-info {
-  background: greenyellow
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  background: lightblue;
+  margin: 10px;
+  border: 5px solid black;
+  border-radius: 10px ;
+  padding: 18px;
+  box-shadow: inset rgb(64, 69, 74) 3px 1px 10px, inset rgb(64, 69, 74) -3px -1px 10px;
+}
+
+#buy-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .App-logo {

@@ -1,27 +1,8 @@
 use dpx_options;
 db.dropDatabase();
 
+
 db.buys.insertMany([
-    {
-        "blockNumber": "4498925",
-        "timeStamp": "1641684234",
-        "hash": "0x46620bf854e078d4e3881dd5cc90c0387ea59d9520003e2b0f75c5085c52ff91",
-        "nonce": "1",
-        "blockHash": "0xd9d6f5fb738ecce453e0b05a5f60369e72a3b23af3e3fcebeac672f138c10fac",
-        "transactionIndex": "0",
-        "from": "0xbe732807642db5ef501c64ca898c56d77950c294",
-        "to": "0x711da677a0d61ee855dad4241b552a706f529c70",
-        "value": "1172286609434862",
-        "gas": "1244367",
-        "gasPrice": "1523841210",
-        "isError": "0",
-        "txreceipt_status": "1",
-        "input": "0xea3bd5df00000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000de0b6b3a7640000000000000000000000000000be732807642db5ef501c64ca898c56d77950c294",
-        "contractAddress": "",
-        "cumulativeGasUsed": "368580",
-        "gasUsed": "1112860",
-        "confirmations": "10884"
-    },
     {
         "blockNumber": "4498925",
         "timeStamp": "1641684234",
