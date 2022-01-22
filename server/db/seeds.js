@@ -1,6 +1,6 @@
 use dpx_options;
 
-load("api_call.js");
+load("/api_call.js");
 
 // const { default: module123 } = require("./api_call");
 
