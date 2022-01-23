@@ -7,9 +7,9 @@ const BuysDetails = ({ buy }) => {
     const from = buy.from
     const token_contract = buy.to
 
-    const parse_address = function(from) {
+    const parse_address = function (from) {
         const string1 = ''
-        const string2 = string1.concat(from.slice(0,7), '..', from.slice(-5))
+        const string2 = string1.concat(from.slice(0, 7), '..', from.slice(-5))
         return string2
     }
 
@@ -29,10 +29,11 @@ const BuysDetails = ({ buy }) => {
         { 'token': 'ETH', 'address': '0x711da677a0d61ee855dad4241b552a706f529c70' },
         { 'token': 'rDPX', 'address': '0xd4cafe592be189aeb7826ee5062b29405ee63488' },
         { 'token': 'DPX', 'address': '0x48252edbfcc8a27390827950ccfc1c00152894e3' },
-        { 'token': 'gOHM', 'address': '0x460f95323a32e26c8d32346abe73eb94d7db08d6' }]
+        { 'token': 'gOHM', 'address': '0x460f95323a32e26c8d32346abe73eb94d7db08d6' }
+    ]
 
     const token_finder = function (add, list) {
-        for (let i = 0; (list.length); i = i + 1) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].address == add) {
                 return list[i].token
             }
@@ -75,7 +76,7 @@ const BuysDetails = ({ buy }) => {
     }
 
     const token = token_finder(token_contract, thisContractList)
-    const strike = strike_finder(token.toString(), input[73]).strike
+    // const strike = strike_finder(token.toString(), input[73]).strike
 
     return (
         <>
@@ -85,7 +86,7 @@ const BuysDetails = ({ buy }) => {
                 <p>Time: {parse_time(buy)}</p>
                 <p>Address: <a target="_blank" href={`https://arbiscan.io/address/${from}`}>{parse_address(from)}</a></p>
                 <p>Token: {token}</p>
-                <p>Strike: {strike}</p>
+                {/* <p>Strike: {strike}</p> */}
                 <p>Amount: {gweis * 10 ** -18} contract(s)</p>
             </div>
         </>
