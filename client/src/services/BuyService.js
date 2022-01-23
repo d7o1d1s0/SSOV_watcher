@@ -5,7 +5,7 @@ const BuyService = {
         return fetch(baseURL)
             .then(res => res.json());
     },
-
+    
     addBuy(buy) {
         return fetch(baseURL, {
             method: 'POST',

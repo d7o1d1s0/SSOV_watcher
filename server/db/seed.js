@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const DPXBuys = require("./dopexbuys");
 const db = 'mongodb://localhost/dpx_options'
-const fetch = require("node-fetch")
+const fetch = require("node-fetch");
 
 // console.log('starting life')
+
+
 
 mongoose.connect(db)
     .then(() => console.log("mongodb connection success"))
