@@ -13,10 +13,10 @@ const BuysDetails = ({ buy }) => {
         return string2
     }
 
-    const type_checker = function (input) {
-        if (input.slice(0, 10) == '0xea3bd5df') {
+    const type_checker = function (buy) {
+        if (buy.input.slice(0, 10) == '0xea3bd5df') {
             return 'Purchase'
-        } else if (input.slice(0, 10) == '0x8144eeba') {
+        } else if (buy.input.slice(0, 10) == '0x8144eeba') {
             return 'Deposit'
         } else {
             return 'Unknown'
@@ -24,10 +24,10 @@ const BuysDetails = ({ buy }) => {
     }
 
     const amount_getter = function (buy) {
-        if (type_checker(buy.input) == 'Purchase') {
-            return parseInt(buy.input.slice(120, 138), 16)*10**-18 + ' contract(s) ' + (buy.value*10**-18).toFixed(2) + ' ETH'
-        } else if (type_checker(buy.input) == 'Deposit') {
-            return (buy.value*10**-18).toFixed(2) + ' ETH'
+        if (type_checker(buy) == 'Purchase') {
+            return (parseInt(buy.input.slice(120, 138), 16)*10**-18).toFixed(3) + ' contract(s) ' + (buy.value*10**-18).toFixed(3) + ' ETH'
+        } else if (type_checker(buy) == 'Deposit') {
+            return (buy.value*10**-18).toFixed(3) + ' ETH'
         } else {
             return 'Unknown'
         }
@@ -61,6 +61,7 @@ const BuysDetails = ({ buy }) => {
     }
 
     const strike_finder = function (token, strike_index) {
+        
         let list = [
             [
                 { 'token': 'ETH', 'strike': 4000 },
@@ -95,19 +96,33 @@ const BuysDetails = ({ buy }) => {
         }
     }
 
+    const strike_getter = function (buy) {
+        if (type_checker(buy) == 'Deposit') {
+            return null
+        } else if (type_checker(buy) == 'Purchase') {
+            const strike_index = buy.input[73]
+            const token = token_finder(token_contract, thisContractList)
+            return strike_finder(token.toString(), strike_index).strike
+        } else {
+            return 'Unknown'
+        }
+        
+    }  
     const token = token_finder(token_contract, thisContractList)
+
     // const strike = strike_finder(token.toString(), input[73]).strike
 
     return (
         <>
             <div className="buy-info">
                 <h4>Option Buy</h4>
+                <p>Type: {type_checker(buy)}</p>
+
                 <p>Hash: <a target="_blank" href={`https://arbiscan.io/tx/${buy.hash}`}>{parse_hash(buy)}</a></p>
                 <p>Time: {parse_time(buy)}</p>
                 <p>Address: <a target="_blank" href={`https://arbiscan.io/address/${from}`}>{parse_address(from)}</a></p>
                 <p>Token: {token}</p>
-                {/* <p>Strike: {strike}</p> */}
-                <p>Type: {type_checker(input)}</p>
+                { strike_getter(buy) ? <p>Strike: {strike_getter(buy)}</p> : null }
                 <p>Amount: {amount_getter(buy)}</p>
             </div>
         </>
@@ -115,3 +130,6 @@ const BuysDetails = ({ buy }) => {
 }
 
 export default BuysDetails
+
+// {txInfo ? <div><p>Value: {txData(txInfo)} {token}</p>
+//         </div> : null}
