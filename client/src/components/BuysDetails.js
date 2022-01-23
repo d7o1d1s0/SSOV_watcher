@@ -13,6 +13,26 @@ const BuysDetails = ({ buy }) => {
         return string2
     }
 
+    const type_checker = function (input) {
+        if (input.slice(0, 10) == '0xea3bd5df') {
+            return 'Purchase'
+        } else if (input.slice(0, 10) == '0x8144eeba') {
+            return 'Deposit'
+        } else {
+            return 'Unknown'
+        }
+    }
+
+    const amount_getter = function (buy) {
+        if (type_checker(buy.input) == 'Purchase') {
+            return parseInt(buy.input.slice(120, 138), 16)*10**-18 + ' contract(s) ' + (buy.value*10**-18).toFixed(2) + ' ETH'
+        } else if (type_checker(buy.input) == 'Deposit') {
+            return (buy.value*10**-18).toFixed(2) + ' ETH'
+        } else {
+            return 'Unknown'
+        }
+    }
+
     const parse_hash = function (buy) {
         const string1 = ''
         const string2 = string1.concat(buy.hash.slice(0, 7), '..', buy.hash.slice(-5))
@@ -87,7 +107,8 @@ const BuysDetails = ({ buy }) => {
                 <p>Address: <a target="_blank" href={`https://arbiscan.io/address/${from}`}>{parse_address(from)}</a></p>
                 <p>Token: {token}</p>
                 {/* <p>Strike: {strike}</p> */}
-                <p>Amount: {gweis * 10 ** -18} contract(s)</p>
+                <p>Type: {type_checker(input)}</p>
+                <p>Amount: {amount_getter(buy)}</p>
             </div>
         </>
     )
