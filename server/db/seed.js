@@ -5,18 +5,43 @@ const fetch = require("node-fetch");
 
 // console.log('starting life')
 
+let obj;
+let saveCounter = 0;
+
 
 
 mongoose.connect(db)
     .then(() => console.log("mongodb connection success"))
     .catch(error => console.log(error));
 
+    // https://api.arbiscan.io/api?module=account&action=txlist&address=0x711da677a0d61ee855dad4241b552a706f529c70&startblock=1&endblock=99999999&sort=des
 
-async function api_call() {
-    const url = 'https://api.arbiscan.io/api?module=account&action=txlist&address=0x711da677a0d61ee855dad4241b552a706f529c70&startblock=1&endblock=99999999&sort=des'
+const contracts = [
+    '0x711da677a0d61ee855dad4241b552a706f529c70',
+    '0xd4cafe592be189aeb7826ee5062b29405ee63488',
+    '0x48252edbfcc8a27390827950ccfc1c00152894e3',
+    '0x460f95323a32e26c8d32346abe73eb94d7db08d6'
+]
 
-    let obj;
-    let saveCounter = 0;
+const urls = function (list) {
+    let url_list = [];
+    for (let i = 0; i < contracts.length; i++) {
+        let temp_string1 = ''
+        let temp_string2 = temp_string1.concat('https://api.arbiscan.io/api?module=account&action=txlist&address=', list[i], '&startblock=1&endblock=99999999&sort=des')
+        console.log(temp_string2)
+        url_list.push(temp_string2)
+    }
+    return url_list
+}
+
+const url = urls(contracts)
+
+
+
+url.map(async url => {
+
+
+
 
     try {
         const response = await fetch(url);
@@ -67,5 +92,6 @@ async function api_call() {
         console.log(err);
     }
 }
+)
 
-api_call()
+// api_call()

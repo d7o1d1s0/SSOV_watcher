@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react'
 
 const BuysDetails = ({ buy }) => {
 
-    const input = buy.input
-    const gweis = parseInt(input.slice(120, 138), 16)
-    const from = buy.from
     const token_contract = buy.to
 
-    const parse_address = function (from) {
+    const parse_address = function (buy) {
         const string1 = ''
-        const string2 = string1.concat(from.slice(0, 7), '..', from.slice(-5))
+        const string2 = string1.concat(buy.from.slice(0, 7), '..', buy.from.slice(-5))
         return string2
     }
 
@@ -25,7 +22,7 @@ const BuysDetails = ({ buy }) => {
 
     const amount_getter = function (buy) {
         if (type_checker(buy) == 'Purchase') {
-            return (parseInt(buy.input.slice(120, 138), 16)*10**-18).toFixed(3) + ' contract(s) ' + (buy.value*10**-18).toFixed(3) + ' ETH'
+            return (parseInt(buy.input.slice(120, 138), 16)*10**-18).toFixed(2) + ' contract(s) ' + (buy.value*10**-18).toFixed(3) + ' ETH'
         } else if (type_checker(buy) == 'Deposit') {
             return (buy.value*10**-18).toFixed(3) + ' ETH'
         } else {
@@ -110,17 +107,13 @@ const BuysDetails = ({ buy }) => {
     }  
     const token = token_finder(token_contract, thisContractList)
 
-    // const strike = strike_finder(token.toString(), input[73]).strike
-
     return (
         <>
             <div className="buy-info">
-                <h4>Option Buy</h4>
-                <p>Type: {type_checker(buy)}</p>
-
+                <h4>{type_checker(buy)}</h4>
                 <p>Hash: <a target="_blank" href={`https://arbiscan.io/tx/${buy.hash}`}>{parse_hash(buy)}</a></p>
                 <p>Time: {parse_time(buy)}</p>
-                <p>Address: <a target="_blank" href={`https://arbiscan.io/address/${from}`}>{parse_address(from)}</a></p>
+                <p>Address: <a target="_blank" href={`https://arbiscan.io/address/${buy.from}`}>{parse_address(buy)}</a></p>
                 <p>Token: {token}</p>
                 { strike_getter(buy) ? <p>Strike: {strike_getter(buy)}</p> : null }
                 <p>Amount: {amount_getter(buy)}</p>
