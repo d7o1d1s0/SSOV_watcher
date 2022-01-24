@@ -10,9 +10,6 @@ let saveCounter = 0;
 
 
 
-mongoose.connect(db)
-    .then(() => console.log("mongodb connection success"))
-    .catch(error => console.log(error));
 
     // https://api.arbiscan.io/api?module=account&action=txlist&address=0x711da677a0d61ee855dad4241b552a706f529c70&startblock=1&endblock=99999999&sort=des
 
@@ -40,11 +37,16 @@ const url = urls(contracts)
 
 const api_call1 = async function () {
 
+    mongoose.connect(db)
+    .then(() => console.log("mongodb connection success"))
+    .catch(error => console.log(error));
+
+
 
 
 
     try {
-        const response = await fetch(url[3]);
+        const response = await fetch(url[0]);
         const json = await response.json();
         obj = json.result;
 
