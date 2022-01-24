@@ -59,6 +59,9 @@ const buyschema = new Schema({
     confirmations: {
         type: String,
     },
+    type: {
+        type: String
+    },
 
 })
 

@@ -33,6 +33,16 @@ const urls = function (list) {
 
 const url = urls(contracts)
 
+const type_checker = function (input) {
+    if (input.slice(0, 10) == '0xea3bd5df') {
+        return 'Purchase'
+    } else if (input.slice(0, 10) == '0x8144eeba') {
+        return 'Deposit'
+    } else {
+        return 'Unknown'
+    }
+}
+
 
 
 const api_call1 = async function () {
@@ -69,11 +79,12 @@ const api_call1 = async function () {
                 cumulativeGasUsed: obj[i].cumulativeGasUsed,
                 gasUsed: obj[i].gasUsed,
                 confirmations: obj[i].confirmations,
+                type: type_checker(obj[i].input)
             })
             // console.log(obj[i])
 
             buy.save(() => {
-                console.log("saved" + buy._id)
+                console.log("saved: " + buy._id)
                 console.log(saveCounter)
                 saveCounter++;
 
