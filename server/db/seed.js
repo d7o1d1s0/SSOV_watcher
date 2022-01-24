@@ -42,11 +42,8 @@ const api_call1 = async function () {
     .catch(error => console.log(error));
 
 
-
-
-
     try {
-        const response = await fetch(url[0]);
+        const response = await fetch(url[3]);
         const json = await response.json();
         obj = json.result;
 
