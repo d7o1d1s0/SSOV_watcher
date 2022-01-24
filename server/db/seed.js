@@ -38,13 +38,13 @@ const url = urls(contracts)
 
 
 
-url.map(async url => {
+const api_call1 = async function () {
 
 
 
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(url[3]);
         const json = await response.json();
         obj = json.result;
 
@@ -74,7 +74,7 @@ url.map(async url => {
             // console.log(obj[i])
 
             buy.save(() => {
-                console.log("saved" + buy)
+                console.log("saved" + buy._id)
                 console.log(saveCounter)
                 saveCounter++;
 
@@ -92,6 +92,5 @@ url.map(async url => {
         console.log(err);
     }
 }
-)
 
-// api_call()
+api_call1()
