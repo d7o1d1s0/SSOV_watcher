@@ -62,6 +62,9 @@ const buyschema = new Schema({
     type: {
         type: String
     },
+    purchaseAmount: {
+        type: String
+    },
 
 })
 

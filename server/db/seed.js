@@ -8,11 +8,6 @@ const fetch = require("node-fetch");
 let obj;
 let saveCounter = 0;
 
-
-
-
-    // https://api.arbiscan.io/api?module=account&action=txlist&address=0x711da677a0d61ee855dad4241b552a706f529c70&startblock=1&endblock=99999999&sort=des
-
 const contracts = [
     '0x711da677a0d61ee855dad4241b552a706f529c70',
     '0xd4cafe592be189aeb7826ee5062b29405ee63488',
@@ -41,6 +36,14 @@ const type_checker = function (input) {
     } else {
         return 'Unknown'
     }
+}
+
+const purchase_amount_getter = function (input) {
+    if (type_checker(input) == 'Purchase') {
+        return (parseInt(input.slice(120, 138), 16)*10**-18).toFixed(2) + ' contract(s)'
+    } else {
+        return null
+    }   
 }
 
 
@@ -79,7 +82,8 @@ const api_call1 = async function () {
                 cumulativeGasUsed: obj[i].cumulativeGasUsed,
                 gasUsed: obj[i].gasUsed,
                 confirmations: obj[i].confirmations,
-                type: type_checker(obj[i].input)
+                type: type_checker(obj[i].input),
+                purchaseAmount: purchase_amount_getter(obj[i].input),
             })
             // console.log(obj[i])
 
