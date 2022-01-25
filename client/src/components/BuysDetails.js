@@ -34,10 +34,10 @@ const BuysDetails = ({ buy }) => {
                 { buy.purchaseAmount ? <p>Amount: {buy.purchaseAmount}</p> : null }
                 { buy.type == 'Deposit' ? <p>Length of input: {buy.input.length}</p> : null }
                 { buy.type == 'Deposit' ? <p>Number of strikes: {buy.input.slice(265, 266)}</p> : null }
-                { buy.type == 'Deposit' ? <p>Strike Index 1: {buy.input.slice(329, 330)}</p> : null }
-                { buy.type == 'Deposit' && buy.input.length > 500 ? <p>Strike Index 2: {buy.input.slice(393, 394)}</p> : null }
-                { buy.type == 'Deposit' && buy.input.length > 700 ? <p>Strike Index 3: {buy.input.slice(457, 458)}</p> : null }
-                { buy.type == 'Deposit' && buy.input.length > 800 ? <p>Strike Index 4: {buy.input.slice(521, 522)}</p> : null }
+                { buy.type == 'Deposit' ? <p>Strike Index 1: {buy.input[329]}</p> : null }
+                { buy.type == 'Deposit' && buy.input.length > 500 ? <p>Strike Index 2: {buy.input[393]}</p> :null }
+                { buy.type == 'Deposit' && buy.input.length > 700 ? <p>Strike Index 3: {buy.input[457]}</p> :null }
+                { buy.type == 'Deposit' && buy.input.length > 800 ? <p>Strike Index 4: {buy.input[521]}</p> :null }
             </div>
         </>
     )

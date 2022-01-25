@@ -8,6 +8,32 @@ const fetch = require("node-fetch");
 let obj;
 let saveCounter = 0;
 
+let strikesList = [
+    [
+        { 'token': 'ETH', 'strike': 4000 },
+        { 'token': 'ETH', 'strike': 4500 },
+        { 'token': 'ETH', 'strike': 5000 },
+        { 'token': 'ETH', 'strike': 6000 },
+        { 'token': 'ETH', 'strike': 7000 },
+    ],
+    [
+        { 'token': 'rDPX', 'strike': 55 },
+        { 'token': 'rDPX', 'strike': 66 },
+        { 'token': 'rDPX', 'strike': 88 },
+        { 'token': 'rDPX', 'strike': 111 },
+        { 'token': 'rDPX', 'strike': 133 },
+    ], [
+        { 'token': 'DPX', 'strike': 1700 },
+        { 'token': 'DPX', 'strike': 2000 },
+        { 'token': 'DPX', 'strike': 2500 },
+        { 'token': 'DPX', 'strike': 3333 },
+    ], [
+        { 'token': 'gOHM', 'strike': 15000 },
+        { 'token': 'gOHM', 'strike': 20000 },
+        { 'token': 'gOHM', 'strike': 25000 },
+        { 'token': 'gOHM', 'strike': 30000 },
+    ],
+]
 
 const contracts = [
     '0x711da677a0d61ee855dad4241b552a706f529c70',
@@ -17,6 +43,7 @@ const contracts = [
 ]
 
 const token_finder = function (add, list) {
+
     for (let i = 0; i < list.length; i++) {
         if (list[i].address == add) {
             return list[i].token
@@ -52,10 +79,10 @@ const type_checker = function (input) {
 
 const purchase_amount_getter = function (input) {
     if (type_checker(input) == 'Purchase') {
-        return (parseInt(input.slice(120, 138), 16)*10**-18).toFixed(2) + ' contract(s)'
+        return (parseInt(input.slice(120, 138), 16) * 10 ** -18).toFixed(2) + ' contract(s)'
     } else {
         return null
-    }   
+    }
 }
 
 const strike_getter = function (input, address) {
@@ -67,11 +94,27 @@ const strike_getter = function (input, address) {
         return strike_finder(token, strike_index).strike
     } else {
         return null
-    } 
-} 
+    }
+}
+
+const strikesArrayGetter = function (token, strikeIndicesArray) {
+    let strikesArray = [];
+    if (strikeIndicesArray == null) {
+        return null
+    }
+    if (strikeIndicesArray.length == 0) {
+        return null
+    }
+
+    for (let i = 0; i < strikeIndicesArray.length; i++) {
+        strikesArray.push(strike_finder(token, strikeIndicesArray[i]).strike)
+    }
+
+    return strikesArray;
+}
 
 const strike_finder = function (token, strike_index) {
-        
+
     let list = [
         [
             { 'token': 'ETH', 'strike': 4000 },
@@ -106,29 +149,35 @@ const strike_finder = function (token, strike_index) {
     }
 }
 
-const strike_array = function (input) {
+const strike_indices_array = function (input) {
+    if (type_checker(input) == "Deposit") {
+
     let strikeArray = [];
 
     if (input.length > 1600) {
         return null
     }
-    
-    strikeArray.push(input.slice(329, 330))
+
+    strikeArray.push(input[329])
 
     if (input.length > 500) {
-        strikeArray.push(input.slice(393, 394))
+        strikeArray.push(input[393])
     }
 
     if (input.length > 700) {
-        strikeArray.push(input.slice(457, 458))
+        strikeArray.push(input[457])
     }
 
     if (input.length > 800) {
-        strikeArray.push(input.slice(521, 522))
+        strikeArray.push(input[521])
     }
 
     return strikeArray
-    }
+}
+else {
+    return null
+}
+}
 
 
 
@@ -142,11 +191,11 @@ const contractList = [
 
 const api_call1 = async function () {
 
-    
+
 
     mongoose.connect(db)
-    .then(() => console.log("mongodb connection success"))
-    .catch(error => console.log(error));
+        .then(() => console.log("mongodb connection success"))
+        .catch(error => console.log(error));
 
 
     try {
@@ -180,7 +229,8 @@ const api_call1 = async function () {
                 purchaseAmount: purchase_amount_getter(obj[i].input),
                 token: token_finder(obj[i].to, contractList),
                 strike: strike_getter(obj[i].input, obj[i].to),
-                strikeArray: strike_array(obj[i].input),
+                strikeIndicesArray: strike_indices_array(obj[i].input),
+                strikesArray: strikesArrayGetter(token_finder(obj[i].to, contractList), strike_indices_array(obj[i].input)),
             })
             // console.log(obj[i])
 
