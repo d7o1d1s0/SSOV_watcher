@@ -8,6 +8,7 @@ const fetch = require("node-fetch");
 let obj;
 let saveCounter = 0;
 
+
 const contracts = [
     '0x711da677a0d61ee855dad4241b552a706f529c70',
     '0xd4cafe592be189aeb7826ee5062b29405ee63488',
@@ -105,6 +106,31 @@ const strike_finder = function (token, strike_index) {
     }
 }
 
+const strike_array = function (input) {
+    let strikeArray = [];
+
+    if (input.length > 1600) {
+        return null
+    }
+    
+    strikeArray.push(input.slice(329, 330))
+
+    if (input.length > 500) {
+        strikeArray.push(input.slice(393, 394))
+    }
+
+    if (input.length > 700) {
+        strikeArray.push(input.slice(457, 458))
+    }
+
+    if (input.length > 800) {
+        strikeArray.push(input.slice(521, 522))
+    }
+
+    return strikeArray
+    }
+
+
 
 
 const contractList = [
@@ -153,7 +179,8 @@ const api_call1 = async function () {
                 type: type_checker(obj[i].input),
                 purchaseAmount: purchase_amount_getter(obj[i].input),
                 token: token_finder(obj[i].to, contractList),
-                strike: strike_getter(obj[i].input, obj[i].to)
+                strike: strike_getter(obj[i].input, obj[i].to),
+                strikeArray: strike_array(obj[i].input),
             })
             // console.log(obj[i])
 

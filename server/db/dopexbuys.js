@@ -71,6 +71,9 @@ const buyschema = new Schema({
     strike: {
         type: String
     },
+    strikeArray: {
+        type: Array
+    },
 
 })
 
