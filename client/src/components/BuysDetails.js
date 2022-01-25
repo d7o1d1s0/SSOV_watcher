@@ -20,6 +20,8 @@ const BuysDetails = ({ buy }) => {
         return time
     }
 
+
+
     return (
         <>
             <div className="buy-info">
@@ -30,10 +32,16 @@ const BuysDetails = ({ buy }) => {
                 <p>Token: {buy.token}</p>
                 { buy.strike ? <p>Strike: {buy.strike}</p> : null }
                 { buy.purchaseAmount ? <p>Amount: {buy.purchaseAmount}</p> : null }
+                { buy.type == 'Deposit' ? <p>Length of input: {buy.input.length}</p> : null }
+                { buy.type == 'Deposit' ? <p>Number of strikes: {buy.input.slice(265, 266)}</p> : null }
+                { buy.type == 'Deposit' ? <p>Strike Index 1: {buy.input.slice(329, 330)}</p> : null }
+                { buy.type == 'Deposit' ? <p>Strike Index 2: {buy.input.slice(393, 394)}</p> : null }
             </div>
         </>
     )
 }
+
+
 
 export default BuysDetails
 
