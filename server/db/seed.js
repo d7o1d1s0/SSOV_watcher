@@ -15,6 +15,17 @@ const contracts = [
     '0x460f95323a32e26c8d32346abe73eb94d7db08d6'
 ]
 
+const token_finder = function (add, list) {
+    for (let i = 0; i < list.length; i++) {
+        if (list[i].address == add) {
+            return list[i].token
+        }
+    }
+    return null
+}
+
+// const token = token_finder(token_contract, thisContractList)
+
 const urls = function (list) {
     let url_list = [];
     for (let i = 0; i < contracts.length; i++) {
@@ -46,9 +57,14 @@ const purchase_amount_getter = function (input) {
     }   
 }
 
-
-
 const api_call1 = async function () {
+
+    const contractList = [
+        { 'token': 'ETH', 'address': '0x711da677a0d61ee855dad4241b552a706f529c70' },
+        { 'token': 'rDPX', 'address': '0xd4cafe592be189aeb7826ee5062b29405ee63488' },
+        { 'token': 'DPX', 'address': '0x48252edbfcc8a27390827950ccfc1c00152894e3' },
+        { 'token': 'gOHM', 'address': '0x460f95323a32e26c8d32346abe73eb94d7db08d6' }
+    ]
 
     mongoose.connect(db)
     .then(() => console.log("mongodb connection success"))
@@ -84,11 +100,12 @@ const api_call1 = async function () {
                 confirmations: obj[i].confirmations,
                 type: type_checker(obj[i].input),
                 purchaseAmount: purchase_amount_getter(obj[i].input),
+                token: token_finder(obj[i].to, contractList),
             })
             // console.log(obj[i])
 
             buy.save(() => {
-                console.log("saved: " + buy._id)
+                console.log("saved: " + buy._id + " token: " + buy.token)
                 console.log(saveCounter)
                 saveCounter++;
 

@@ -65,6 +65,9 @@ const buyschema = new Schema({
     purchaseAmount: {
         type: String
     },
+    token: {
+        type: String
+    },
 
 })
 
