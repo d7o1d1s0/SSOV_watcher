@@ -57,14 +57,64 @@ const purchase_amount_getter = function (input) {
     }   
 }
 
+const strike_getter = function (input, address) {
+    if (type_checker(input) == 'Deposit') {
+        return null
+    } else if (type_checker(input) == 'Purchase') {
+        const strike_index = input[73]
+        const token = token_finder(address, contractList)
+        return strike_finder(token, strike_index).strike
+    } else {
+        return null
+    } 
+} 
+
+const strike_finder = function (token, strike_index) {
+        
+    let list = [
+        [
+            { 'token': 'ETH', 'strike': 4000 },
+            { 'token': 'ETH', 'strike': 4500 },
+            { 'token': 'ETH', 'strike': 5000 },
+            { 'token': 'ETH', 'strike': 6000 },
+            { 'token': 'ETH', 'strike': 7000 },
+        ],
+        [
+            { 'token': 'rDPX', 'strike': 55 },
+            { 'token': 'rDPX', 'strike': 66 },
+            { 'token': 'rDPX', 'strike': 88 },
+            { 'token': 'rDPX', 'strike': 111 },
+            { 'token': 'rDPX', 'strike': 133 },
+        ], [
+            { 'token': 'DPX', 'strike': 1700 },
+            { 'token': 'DPX', 'strike': 2000 },
+            { 'token': 'DPX', 'strike': 2500 },
+            { 'token': 'DPX', 'strike': 3333 },
+        ], [
+            { 'token': 'gOHM', 'strike': 15000 },
+            { 'token': 'gOHM', 'strike': 20000 },
+            { 'token': 'gOHM', 'strike': 25000 },
+            { 'token': 'gOHM', 'strike': 30000 },
+        ],
+    ]
+
+    for (let i = 0; list.length; i++) {
+        if (list[i][0].token == token) {
+            return list[i][strike_index]
+        }
+    }
+}
+
+const contractList = [
+    { 'token': 'ETH', 'address': '0x711da677a0d61ee855dad4241b552a706f529c70' },
+    { 'token': 'rDPX', 'address': '0xd4cafe592be189aeb7826ee5062b29405ee63488' },
+    { 'token': 'DPX', 'address': '0x48252edbfcc8a27390827950ccfc1c00152894e3' },
+    { 'token': 'gOHM', 'address': '0x460f95323a32e26c8d32346abe73eb94d7db08d6' }
+]
+
 const api_call1 = async function () {
 
-    const contractList = [
-        { 'token': 'ETH', 'address': '0x711da677a0d61ee855dad4241b552a706f529c70' },
-        { 'token': 'rDPX', 'address': '0xd4cafe592be189aeb7826ee5062b29405ee63488' },
-        { 'token': 'DPX', 'address': '0x48252edbfcc8a27390827950ccfc1c00152894e3' },
-        { 'token': 'gOHM', 'address': '0x460f95323a32e26c8d32346abe73eb94d7db08d6' }
-    ]
+    
 
     mongoose.connect(db)
     .then(() => console.log("mongodb connection success"))
@@ -101,6 +151,7 @@ const api_call1 = async function () {
                 type: type_checker(obj[i].input),
                 purchaseAmount: purchase_amount_getter(obj[i].input),
                 token: token_finder(obj[i].to, contractList),
+                strike: strike_getter(obj[i].input, obj[i].to)
             })
             // console.log(obj[i])
 

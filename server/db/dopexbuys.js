@@ -68,6 +68,9 @@ const buyschema = new Schema({
     token: {
         type: String
     },
+    strike: {
+        type: String
+    },
 
 })
 
