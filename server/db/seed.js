@@ -159,15 +159,13 @@ const strike_indices_array = function (input) {
     }
 
     strikeArray.push(input[329])
-
+    
     if (input.length > 500) {
         strikeArray.push(input[393])
     }
-
     if (input.length > 700) {
         strikeArray.push(input[457])
     }
-
     if (input.length > 800) {
         strikeArray.push(input[521])
     }
